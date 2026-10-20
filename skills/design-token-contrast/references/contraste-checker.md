@@ -1,3 +1,10 @@
+# Checker source
+
+`design-token-contrast` ships its checker as source so the review stays auditable and
+dependency-free. Save the block below as `contraste.mjs` somewhere you can run Node 18+
+from, then invoke it with `node contraste.mjs`. No dependencies.
+
+```javascript
 #!/usr/bin/env node
 // Calcula el contraste WCAG 2.x entre los colores de tus tokens y sugiere un ajuste cuando un par
 // no llega al mínimo. Lee variables CSS (--color-*) en hex, rgb(), hsl() u oklch(), y resuelve
@@ -320,3 +327,4 @@ else if (!fallas && !incompletos) console.log('\nTodos los pares revisados cumpl
 console.log('Ojo: esto mide los tokens. Un texto sobre una imagen o un degradado hay que revisarlo en pantalla.');
 if (op.json) fs.writeFileSync(op.json, JSON.stringify(resultados, null, 2));
 process.exit(fallas && !op.todos ? 1 : (incompletos || !medidos ? 2 : 0));
+```

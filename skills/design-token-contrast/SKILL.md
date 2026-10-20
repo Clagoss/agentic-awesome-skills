@@ -19,11 +19,12 @@ license_source: "https://github.com/Clagoss/claude-code-para-disenadores/blob/ma
 ## Overview
 
 Measures contrast on the **tokens**, not on screens: a problem fixed in a token is fixed
-everywhere it is used. A bundled Node script reads the CSS custom properties of the project,
-pairs text tokens with background tokens, measures each pair in the light theme and in dark mode,
-and, for every pair that fails, proposes the color with the same hue and the nearest lightness
-that passes. It also proposes **one value per token** that passes against every background it is
-measured on, so the fix is a single change.
+everywhere it is used. A Node checker, shipped as source in
+[references/contraste-checker.md](references/contraste-checker.md), reads the CSS custom properties
+of the project, pairs text tokens with background tokens, measures each pair in the light theme
+and in dark mode, and, for every pair that fails, proposes the color with the same hue and the
+nearest lightness that passes. It also proposes **one value per token** that passes against every
+background it is measured on, so the fix is a single change.
 
 WCAG 2.2 AA minimums it applies: normal text **4.5:1** (1.4.3), large text **3:1**, and UI
 components and graphics such as input borders, icons and focus rings **3:1** (1.4.11).
@@ -38,8 +39,12 @@ components and graphics such as input borders, icons and focus rings **3:1** (1.
 
 ### Step 1: Run the measurement
 
+The checker ships as source, not as a committed script: save the JavaScript block in
+[references/contraste-checker.md](references/contraste-checker.md) as `contraste.mjs` in a
+scratch directory (no dependencies, Node 18+), then run it:
+
 ```bash
-node <this-skill-dir>/scripts/contraste.mjs --tokens src/styles/tokens.css
+node contraste.mjs --tokens src/styles/tokens.css
 ```
 
 Without `--tokens` it looks for `src/styles/tokens.css` and other common locations. The script:
